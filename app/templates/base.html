@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Address Book</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
      
@@ -15,8 +16,8 @@
         {% include 'alerts.html' %}
     </div>
 
-    <div class="row bg-secondary py-5">
-        <div class="col text-center text-white">
+    <div class="row py-5">
+        <div class="col text-center text-dark">
             {% block header %}
                 <h1>Address List</h1>
             {% endblock %}
@@ -27,6 +28,15 @@
 
     <div class="container">
         {% block content %}
+            {% for address in addresses %}
+                <div class="row">
+                    <div class="col">
+                        <h2>{{ address.first_name }} {{ address.last_name }}</h2>
+                        <p>{{ address.phone_number }}</p>
+                        <p>{{ address.address }}</p>
+                    </div>
+                </div>
+            {% endfor %}
         {% endblock %}
     </div>
 

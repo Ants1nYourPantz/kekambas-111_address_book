@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %} Add Address {% endblock %}
+{% block title %} Sign Up {% endblock %}
 
 {% block header %}
-    <h4>Please Enter the Address you'd like to log to your Address Book</h4>
+    <h1>Sign Up</h1>
 {% endblock %}
 
 {% block content %}
@@ -20,11 +20,17 @@
                         {{ form.last_name.label }}
                         {{ form.last_name(class="form-control", placeholder="Enter Last Name") }}
 
-                        {{ form.phone_number.label }}
-                        {{ form.phone_number(class="form-control", placeholder="Enter Phone Number") }}
+                        {{ form.email.label }}
+                        {{ form.email(class="form-control", placeholder="Enter Email") }}
 
-                        {{ form.address.label }}
-                        {{ form.address(class="form-control", placeholder="Enter address") }}
+                        {{ form.username.label }}
+                        {{ form.username(class="form-control", placeholder="Enter Username") }}
+
+                        {{ form.password.label }}
+                        {{ form.password(class="form-control", placeholder="Enter Password") }}
+
+                        {{ form.confirm_pass.label }}
+                        {{ form.confirm_pass(class="form-control", placeholder="Confirm Your Password") }}
 
                         {{ form.submit(class="btn text-bg-warning w-100 mt-3") }}
 

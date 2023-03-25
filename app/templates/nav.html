@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-warning" data-bs-theme="warning">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Address Book</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" aria-controls="collapseLinks" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,7 +7,13 @@
         <div class="collapse navbar-collapse" id="collapseLinks">
         <div class="navbar-nav">
             <a class="nav-link" href="/">Home</a>
+            {% if current_user.is_authenticated %}
             <a class="nav-link" href="/address">Add Address</a>
+            <a class="nav-link" href="/logout">Log Out</a>
+            {% else %}        
+            <a class="nav-link" href="/signup">Sign Up</a>
+            <a class="nav-link" href="/login">Log In</a>
+            {% endif %}
         </div>
         </div>
     </div>
