@@ -13,8 +13,7 @@ def index():
         return render_template('base.html', addresses=user_addresses)
     else:
         return render_template('base.html')
-# def index():
-#     return render_template('base.html')
+
 
 
 
@@ -83,3 +82,38 @@ def address():
         return redirect(url_for('index'))
     return render_template('address.html', form=form)
 
+
+@app.route('/edit/<id>', methods=["GET", "POST"])
+@login_required
+def edit_address(id):
+    form = AddressLog()
+    address_to_edit = Addresses.query.get(id)
+
+    if form.validate_on_submit():
+        address_to_edit.first_name = form.first_name.data
+        address_to_edit.last_name = form.last_name.data
+        address_to_edit.phone_number = form.phone_number.data
+        address_to_edit.address = form.address.data
+        db.session.commit()
+        flash(f"{address_to_edit.first_name} has been edited!", "success")
+        return redirect(url_for('index'))
+
+    form.first_name.data = address_to_edit.first_name
+    form.last_name.data = address_to_edit.last_name
+    form.phone_number.data = address_to_edit.phone_number
+    form.address.data = address_to_edit.address
+    return render_template('edit.html', form=form, post=address_to_edit)
+
+
+@app.route('/delete/<id>')
+@login_required
+def delete_address(id):
+    address_to_delete = Addresses.query.get(id)
+    if address_to_delete.author != current_user:
+        flash("You do not have permission to delete this post", "danger")
+        return redirect(url_for('index'))
+
+    db.session.delete(address_to_delete)
+    db.session.commit()
+    flash(f"{address_to_delete.first_name} has been deleted", "info")
+    return redirect(url_for('index'))
